@@ -1,0 +1,41 @@
+models:
+  - name: evaluate_convert_frozen
+
+    # list of launchers for your topology.
+    launchers:
+        # launcher framework (e.g. caffe, dlsdk)
+      - framework: dlsdk
+        # device for infer (e.g. for dlsdk cpu, gpu, hetero:cpu,gpu ...)
+        device: CPU
+        # topology IR (*.prototxt for caffe, *.xml for InferenceEngine, etc)
+        # path to topology is prefixed with directory, specified in "-m/--models" option
+        model: a_muse_full-depthwise_5x5-NHWC-nbc8-640x480.xml
+        # topology weights binary (*.caffemodel for caffe, *.bin for InferenceEngine)
+        weights: a_muse_full-depthwise_5x5-NHWC-nbc8-640x480.bin
+        # launcher returns raw result, so it should be converted
+        # to an appropriate representation with adapter
+        adapter: 
+            type: super_resolution
+            reverse_channels: True
+        #??
+        cpu_extensions: C:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\inference_engine\bin\intel64\Release\cpu_extension_avx2.dll
+
+
+    datasets:
+      - name: styletransfer
+       # ??
+        data_source: dataset
+        # ??
+        # parameters for annotation conversion to a common annotation representation format.
+        annotation: super_resolution-640x480.pickle
+       # annotation_conversion:
+       #   converter: super_resolution
+      #    data_dir: dataset
+          #annotation_loader: opencv
+        preprocessing :
+          - type: resize
+            dst_height: 480
+            dst_width: 640          
+        metrics:
+          - type: psnr
+            #color_order: RGB
