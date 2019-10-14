@@ -17,8 +17,8 @@ set /p ymlfilename=What's YML File name?
 echo %ymlfilename%
 python calibrate.py -c %ymlfilename%
 
-rem copy *_i8.bin "%userprofile%\Documents\Intel\OpenVINO\inference_engine_samples_build\intel64\Release\" /y
-rem copy *_i8.xml "%userprofile%\Documents\Intel\OpenVINO\inference_engine_samples_build\intel64\Release\" /y
+copy *_i8.bin "%userprofile%\Documents\Intel\OpenVINO\inference_engine_samples_build\intel64\Release\" /y
+copy *_i8.xml "%userprofile%\Documents\Intel\OpenVINO\inference_engine_samples_build\intel64\Release\" /y
 
 cd "%userprofile%\Documents\Intel\OpenVINO\inference_engine_samples_build\intel64\Release\"
 
